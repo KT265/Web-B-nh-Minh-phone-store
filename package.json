@@ -1,21 +1,16 @@
 {
   "name": "binhminh_phonestore",
   "version": "1.0.0",
-  "description": "Bình Minh Phone Store - Full Stack Application",
-  "main": "backend/server.js",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "dev": "nodemon backend/server.js",
-    "server": "node backend/server.js",
-    "client": "cd frontend-react && npm start",
-    "dev:client": "cd frontend-react && npm start",
-    "build:client": "cd frontend-react && npm run build",
-    "install:client": "cd frontend-react && npm install",
-    "concurrently": "concurrently \"npm run dev\" \"npm run dev:client\"",
-    "heroku-postbuild": "npm run install:client && npm run build:client"
+    "server": "nodemon backend/server.js",
+    "client": "npm start --prefix Front_end",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "type": "module",
-  "keywords": ["phone", "store", "ecommerce", "react", "nodejs"],
-  "author": "Bình Minh Team",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^1.13.0",
@@ -25,10 +20,11 @@
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.20.0",
-    "mongoose": "^8.19.1"
+    "mongoose": "^8.19.1",
+    "react-router-dom": "^7.9.4"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10",
-    "concurrently": "^7.6.0"
+    "concurrently": "^9.2.1",
+    "nodemon": "^3.1.10"
   }
 }

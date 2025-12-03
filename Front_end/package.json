@@ -11,6 +11,7 @@
     "axios": "^1.13.0"
   },
   "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
