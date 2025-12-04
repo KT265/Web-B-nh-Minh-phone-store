@@ -235,9 +235,9 @@ const Payment = () => {
                 </div>
             </div>
             
-            <div className={styles.footerContainer}>
+            {/* <div className={styles.footerContainer}>
                 <Footer/>
-            </div>
+            </div> */}
         </div>
     );
 };

@@ -64,7 +64,7 @@ class ShoppingCartService {
         quantity: quantity
       };
       await axios.post(this.API_URL, payload, this.getConfig());
-      return { success: true, message: 'Đã thêm vào giỏ hàng!', cart: await this.loadCart() };
+      return { success: true, cart: await this.loadCart() };
     } catch (error) {
         if (error.response && error.response.status === 401) {
             return { success: false, message: 'Vui lòng đăng nhập' };

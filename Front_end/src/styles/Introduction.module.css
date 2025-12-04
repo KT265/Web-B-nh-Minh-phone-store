@@ -13,7 +13,7 @@
   position: relative;
   width: 100%;
   max-width: 1400px;
-  height: 220vh;
+  height: 225vh;
   padding: 0 20px;
   z-index: 1;
   display: flex;
@@ -102,6 +102,6 @@
   display: block;
   width: 150px;
   height: auto;
-  margin: 10px auto;
+  margin: 15px auto;
 }
 

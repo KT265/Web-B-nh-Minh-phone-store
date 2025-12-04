@@ -2,8 +2,7 @@ import React from "react";
 import styles from '../styles/Introduction.module.css';
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
-// import Logo from 'images/logovector.png';
-// import camketImage from './images/Cam_Ket.png';
+// import CamKet from 'images/Cam_Ket.png';
 const Introduction = () => {
     return (
         <div className={styles.Introduction}>
@@ -39,7 +38,7 @@ const Introduction = () => {
                             <p>Chúng tôi luôn lắng nghe câu chuyện của bạn. Bạn cần một chiếc điện thoại pin "trâu" để chạy xe công nghệ? Bạn cần camera xịn để lưu giữ khoảnh khắc con cái khôn lớn? Hay đơn giản là một món quà biếu bố mẹ? Chúng tôi thấu hiểu và đưa ra giải pháp phù hợp nhất, chứ không phải chiếc máy đắt tiền nhất.</p>                                                   
                         </section>
                         <section className={styles.Section3}>
-                            <img src="/Cam_Ket.png" alt="Cam kết từ trái tim" />
+                            <img src="images/Cam_Ket.png" alt="Cam kết từ trái tim" />
                         </section>
                         <section className={styles.Section4}>
                             <h2>Tầm nhìn tương lai</h2>
@@ -53,7 +52,7 @@ const Introduction = () => {
                         <img src="/logovector.png" alt="Logo Bình Minh store" className={styles.Logo}/>
                     </div>
                 </div>
-            <Footer />
+            {/* <Footer /> */}
         </div>
     );
 };

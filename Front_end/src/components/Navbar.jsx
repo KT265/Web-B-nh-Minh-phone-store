@@ -176,12 +176,6 @@ const Navbar = () => {
       case 'Giới thiệu':
         navigate('/introduction');
         break;
-      case 'Tin Tức':
-        alert('Trang tin tức đang được phát triển!');
-        break;
-      case 'Liên hệ':
-        alert('Trang liên hệ đang được phát triển!');
-        break;
       default:
         console.log('Link chưa được xử lý:', label);
     }

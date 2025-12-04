@@ -101,7 +101,7 @@ const Login = () => {
         <img src="/logovector.png" alt="logo" />
       </div>
 
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

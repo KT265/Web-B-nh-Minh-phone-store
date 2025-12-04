@@ -178,7 +178,7 @@ class LoginService {
 
   // Xử lý quên mật khẩu
   handleForgotPasswordClick(navigate) {
-    alert("Chức năng đang phát triển");
+    navigate('/forgot-password');
   }
 
   // Xử lý Submit Form Đăng nhập
