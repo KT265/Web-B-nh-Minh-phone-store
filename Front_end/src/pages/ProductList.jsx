@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import styles from '../styles/ProductList.module.css';
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
@@ -20,7 +21,6 @@ const ProductList = () => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-
         const { data } = await axios.get('http://localhost:5000/api/products');
         setProducts(data);
       } catch (err) {
@@ -76,34 +76,33 @@ const ProductList = () => {
           {!loading && !error && (
               products.map(product => (
                 <div key={product._id} className={styles.productCard}>
-                  {product.image ? (
-                    <img src={product.image} alt={product.name} className={styles.productImage} />
-                  ) : (
-                    <div className={styles.noImage}>No image</div>
-                  )}
-                  
-                  <div className={styles.productInfo}>
-                    <h3 className={styles.productName}>{product.name}</h3>
-                    <div className={styles.productPrice}>
-                      <span className={styles.priceCurrent}>
-                        {product.price?.toLocaleString('vi-VN')}₫
-                      </span>
-                      {product.priceOld && (
-                        <span className={styles.priceOld}>
-                          {product.priceOld?.toLocaleString('vi-VN')}₫
-                        </span>
-                      )}
-                    </div>
+                  <Link to={`/product/${product._id}`}  style={{textDecoration: 'none', color: 'inherit'}}>
+                    {product.image ? (
+                      <img src={product.image} alt={product.name} className={styles.productImage} />
+                    ) : (
+                      <div className={styles.noImage}>No image</div>
+                    )}
                     
-                    <div className={styles.productActions}>
-                      <button 
-                        className={styles.addToCartBtn} 
-                        onClick={() => handleAddToCart(product)}
-                      >
-                        Thêm vào giỏ hàng
-                      </button>
+                    <div className={styles.productInfo}>
+                      <h3 className={styles.productName}>{product.name}</h3>
+                      <div className={styles.productPrice}>
+                        <span className={styles.priceCurrent}>
+                          {product.price?.toLocaleString('vi-VN')}₫
+                        </span>
+                        {product.priceOld && (
+                          <span className={styles.priceOld}>
+                            {product.priceOld?.toLocaleString('vi-VN')}₫
+                          </span>
+                        )}
+                      </div>
                     </div>
-                  </div>
+                  </Link>
+                  <button 
+                    className={styles.addToCartBtn} 
+                    onClick={() => handleAddToCart(product)}
+                  >
+                    Thêm vào giỏ hàng
+                  </button>
                 </div>
               ))
           )}

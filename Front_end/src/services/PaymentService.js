@@ -78,7 +78,7 @@ class PaymentService {
             const token = userInfo ? userInfo.token : null;
 
             if (!token) {
-                setMessage('Bạn phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.');
+                setMessage('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.');
                 // Có thể navigate('/login') ở đây nếu muốn
                 setLoading(false);
                 return;

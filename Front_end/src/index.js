@@ -37,10 +37,8 @@ const router = createBrowserRouter([
       { path: 'login', element: <Login /> },
       { path: 'signup', element: <Signup /> },
       { path: 'forgot-password', element: <ForgotPassWord /> },
-      { path: 'payment', element: <Payment /> },
-      
+      { path: 'payment', element: <Payment /> }, 
       { path: 'profile', element: <ProfilePage /> },
-      
       { path: 'product/:id', element: <ProductDetail /> },
       {path: 'productlist', element: <ProductList/>},
       {path: 'introduction', element: <Introduction/>},

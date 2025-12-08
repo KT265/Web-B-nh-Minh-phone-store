@@ -16,7 +16,7 @@ const Footer = () => {
         <div className={styles.footerSection}>
           <h4>Về chúng tôi</h4>
           <ul>
-            <li><a href="#">Giới thiệu</a></li>
+            <li><a href="#">Giới thiệu </a></li>
             <li><a href="#">Tin tức</a></li>
             <li><a href="#">Tuyển dụng</a></li>
             <li><a href="#">Chính sách</a></li>

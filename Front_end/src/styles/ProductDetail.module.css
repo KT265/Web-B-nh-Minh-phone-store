@@ -1,0 +1,149 @@
+.ProductDetailPage {
+  display: flex;
+  flex-direction:column ;
+  align-items: center;
+  font-family: "Inter", sans-serif;
+}
+.productDetailContainer {
+  position: relative;
+  margin-top: 130px;
+  width: 85%;
+  height: 140vh;
+  display: flex;
+}
+
+.ProductInfo{
+  position: absolute;
+  display: flex;  
+  gap: 100px;
+  width: 100%;
+  height: 70vh;
+}
+.ProductInfo img {
+  width: auto;
+  height: 100%;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.ProductDetail{
+  /* position: absolute; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.ProductDetail h1{
+  font-size: 40px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.BroadProductDetailInfo{
+  width: 80vh;
+  height: 55vh;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1); 
+  padding: 40px 10%;
+}
+.BroadProductDetailInfo ul{
+  list-style: none;
+}
+.ListInfo{
+  margin-bottom: 4%;
+  font-size: 20px;
+}
+.productPrice {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.priceCurrent {
+  font-size: 40px;
+  font-weight: 700;
+  color: #0066cc;
+}
+.priceOld {
+  font-size: 20px;
+  color: #999;
+  text-decoration: line-through;
+}
+.addToCartBtn {
+  padding: 10px 20px;
+  background-color: #2a3a4e;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  height: 120vh;
+}
+.addToCartBtn:hover {
+  background-color: #ee4848;
+  transform: translateY(-2px);
+}
+
+.Promotions{
+  background-color: white;
+  width: 80vh;
+  height: 100px;
+}
+
+.floatingCartBtn {
+  position: fixed;
+  bottom: 10px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background-color: #5b9094;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.floatingCartBtn:hover {
+  background-color: #ee4848;
+  transform: scale(1.1);
+  animation: pulse 1s infinite;
+}
+
+.cartBadge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: #ff4757;
+  color: white;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  border: 2px solid white;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1.1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}

@@ -112,33 +112,35 @@ const MainPage = () => {
           ) : (
             products.slice(0, MAX_ITEMS).map(product => (
               <div key={product._id} className={styles.productCard}>
-                <img src={product.image} alt={product.name} />
-                
-                <div className={styles.productInfo}>
-                  <Link to={`/product/${product._id}`} style={{textDecoration: 'none', color: 'inherit'}}>
-                    <h3 className={styles.productName}>{product.name}</h3>
-                  </Link>
-                  
-                  <div className={styles.productPrice}>
-                    <span className={styles.priceCurrent}>
-                      {product.price?.toLocaleString('vi-VN')}₫
-                    </span>
-
+                <Link to={`/product/${product._id}`}  style={{textDecoration: 'none', color: 'inherit'}} >
+                  <div className={styles.productContent}>
+                    <img src={product.image} alt={product.name} />
+                    <div className={styles.productInfo}>
+                      <h3 className={styles.productName}>{product.name}</h3>
+                      <div className={styles.productPrice}>
+                        <span className={styles.priceCurrent}>
+                          {product.price?.toLocaleString('vi-VN')}₫
+                        </span>
+                        {product.priceOld && (
+                          <span className={styles.priceOld}>
+                            {product.priceOld?.toLocaleString('vi-VN')}₫
+                          </span>
+                        )}
+                      </div>                     
+                    </div>
                   </div>
-                  
-                  <button 
-                    className={styles.addToCartBtn}
-                    onClick={() => handleAddToCart(product)}
+                </Link>
+                <button 
+                  className={styles.addToCartBtn}
+                  onClick={() => handleAddToCart(product)}
                   >
-                    Thêm vào giỏ hàng
-                  </button>
-                </div>
-              </div>
+                  Thêm vào giỏ hàng
+                </button>
+              </div>  
             ))
           )}
         </div>
       </main>     
-      {/* <Footer /> */}
     </div>
   );
 };
