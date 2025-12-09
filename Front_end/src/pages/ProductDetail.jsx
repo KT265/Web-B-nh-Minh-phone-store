@@ -69,8 +69,16 @@ const ProductDetailPage = () => {
     <div className={styles.ProductDetailPage}>
       <Navbar />
       <div className={styles.productDetailContainer}>
-        <div className={styles.ProductInfo}> 
-          <img src={product.image} alt={product.name} />
+        <div className={styles.ProductInfo}>
+          <div className={styles.ProductInfoLeft}>
+            <img src={product.image} alt={product.name} />
+            <button
+              className={styles.addToCartBtn}
+              onClick={() => handleAddToCart(product)}
+              >
+              Thêm vào giỏ hàng
+            </button>
+          </div>
           <div className={styles.ProductDetail}>
             <h1>{product.name}</h1>
             <div className={styles.BroadProductDetailInfo}>
@@ -92,61 +100,43 @@ const ProductDetailPage = () => {
                 )}
               </div>     
             </div>
-          </div>
-          <button 
-            className={styles.addToCartBtn}
-            onClick={() => handleAddToCart(product)}
-            >
-            Thêm vào giỏ hàng
-          </button>
-        </div>
-
-        {/* <div style={{ flex: 1 }}>
-            <img 
-                src={product.image} 
-                alt={product.name} 
-                style={{ width: '100%', borderRadius: '10px', boxShadow: '0 4px 10px rgba(0,0,0,0.1)' }} 
-            />
-        </div> */}
-
-        {/* Thông tin sản phẩm */}
-        {/* <div style={{ flex: 1 }}>
-            <Link to="/" style={{ textDecoration: 'none', color: '#666' }}>← Quay lại</Link>
-            <h1 style={{ marginTop: '10px', fontSize: '32px' }}>{product.name}</h1>
-            <h2 style={{ color: '#d70018', fontSize: '28px' }}>
-                {product.price?.toLocaleString('vi-VN')} đ
-            </h2>
-            <p style={{ lineHeight: '1.6', color: '#333' }}>{product.description}</p>
-            
-            <div style={{ marginTop: '20px', padding: '15px', backgroundColor: '#f5f5f5', borderRadius: '8px' }}>
-                <h3>Thông số kỹ thuật:</h3>
-                <ul style={{ listStyle: 'none', padding: 0 }}>
-                    <li style={{ marginBottom: '8px' }}><strong>Màn hình:</strong> {product.specifications?.display}</li>
-                    <li style={{ marginBottom: '8px' }}><strong>Camera:</strong> {product.specifications?.camera}</li>
-                    <li style={{ marginBottom: '8px' }}><strong>RAM:</strong> {product.specifications?.ram}</li>
-                    <li style={{ marginBottom: '8px' }}><strong>Bộ nhớ:</strong> {product.specifications?.storage}</li>
-                </ul>
+            <div className={styles.PromotionsProduct}>
+              <h3>SĂN SALE HẾT Ý TẠI BÌNH MINH MOBILE!</h3>
+              <ul className={styles.totallist}>
+                <li><strong>🎁 Giảm giá trực tiếp:</strong>
+                  <ul className={styles.PromotionsSections}>
+                    <li>Giảm ngay <strong>500.000đ - 2.000.000đ</strong> tiền mặt tùy theo giá trị từng dòng máy.</li>
+                    <li>Flash Sale giờ vàng (12h - 14h hàng ngày): Giảm thêm <strong>5%</strong> trên tổng hóa đơn.</li>
+                  </ul>
+                </li>
+                <li><strong>🎁 Combo quà tặng phụ kiện:</strong>
+                  <ul className={styles.PromotionsSections}>
+                    <li>Tặng trọn bộ: <strong>Cốc sạc nhanh 20W + Cáp sạc chính hãng + Ốp lưng thời trang.</strong></li>
+                    <li>Miễn phí dán cường lực cao cấp trọn đời máy (trị giá 300.000đ).</li>
+                    <li>Tặng tai nghe Bluetooth hoặc Sạc dự phòng cho các hóa đơn trên 10 triệu đồng.</li>
+                  </ul>
+                </li>
+                <li><strong>🎁 Trợ giá & Thu cũ đổi mới:</strong>
+                  <ul className={styles.PromotionsSections}>
+                    <li>Trợ giá lên đời: Tặng thêm <strong>1.000.000đ</strong> khi khách hàng tham gia chương trình "Thu cũ đổi mới".</li>
+                  </ul>
+                </li>
+                <li><strong>🎁 Ưu đãi tài chính:</strong>
+                  <ul className={styles.PromotionsSections}>
+                    <li>Trả góp <strong>0% lãi suất</strong>: Chỉ cần CCCD, không cần chứng minh thu nhập, trả trước 0 đồng rinh máy về ngay.</li>
+                  </ul>
+                </li>
+                <li><strong>🎁 Đặc quyền sinh viên:</strong>
+                  <ul className={styles.PromotionsSections}>
+                    <li>Giảm thêm <strong>200.000đ </strong> cho học sinh, sinh viên.</li>
+                  </ul>
+                </li>
+              </ul>
             </div>
-            
-            <button 
-                onClick={handleAddToCart}
-                style={{ 
-                    marginTop: '30px', 
-                    padding: '15px 40px', 
-                    fontSize: '18px', 
-                    backgroundColor: '#5b9094', 
-                    color: 'white', 
-                    border: 'none', 
-                    borderRadius: '30px', 
-                    cursor: 'pointer',
-                    fontWeight: 'bold',
-                    boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
-                }}
-            >
-                Thêm vào giỏ hàng
-            </button>
-        </div> */}
+          </div>
+        </div>
       </div>
+
       <button 
           className={styles.floatingCartBtn}
           onClick={openCart}

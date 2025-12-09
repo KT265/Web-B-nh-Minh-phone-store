@@ -8,29 +8,55 @@
   position: relative;
   margin-top: 130px;
   width: 85%;
-  height: 140vh;
+  height: 145vh;
   display: flex;
 }
 
 .ProductInfo{
   position: absolute;
   display: flex;  
-  gap: 100px;
+  gap: 70px;
   width: 100%;
   height: 70vh;
 }
-.ProductInfo img {
+.ProductInfoLeft{
+  width: 550px;
+  height: 700px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.ProductInfoLeft img {
   width: auto;
-  height: 100%;
+  height: 550px;
   border-radius: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
 }
+.addToCartBtn {
+  padding: 10px 20px;
+  background-color: #2a3a4e;
+  color: white;
+  border: none;
+  border-radius: 40px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 60%;
+  height: 10vh;
+}
+.addToCartBtn:hover {
+  background-color: #ee4848;
+  transform: translateY(-2px);
+}
+
 .ProductDetail{
-  /* position: absolute; */
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
+  height: max-content;
 }
 
 .ProductDetail h1{
@@ -40,7 +66,7 @@
 }
 .BroadProductDetailInfo{
   width: 80vh;
-  height: 55vh;
+  height: 45vh;
   background-color: white;
   border-radius: 20px;
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1); 
@@ -69,28 +95,30 @@
   color: #999;
   text-decoration: line-through;
 }
-.addToCartBtn {
-  padding: 10px 20px;
-  background-color: #2a3a4e;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  width: 100%;
-  height: 120vh;
-}
-.addToCartBtn:hover {
-  background-color: #ee4848;
-  transform: translateY(-2px);
-}
 
-.Promotions{
+.PromotionsProduct{
+  width: 100%;
+  height: max-content;
+  border-radius: 20px;
   background-color: white;
-  width: 80vh;
-  height: 100px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  gap: 15px;
+}
+.PromotionsProduct h3{
+ font-size: 30px;
+}
+.totallist{
+  list-style-type: decimal;
+  font-size: 17px;
+  margin-left: 10px;
+}
+.PromotionsSections{
+  margin-left: 10px;
+  list-style-type: disc;
 }
 
 .floatingCartBtn {
