@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from '../styles/ProductList.module.css';
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
@@ -12,6 +12,7 @@ const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedIds, setSelectedIds] = useState([]);
   
   // State cho giỏ hàng
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -65,10 +66,39 @@ const ProductList = () => {
     }
   };
 
+  // Compare selection handlers
+  const toggleSelect = (productId) => {
+    setSelectedIds(prev => {
+      if (prev.includes(productId)) return prev.filter(id => id !== productId);
+      if (prev.length >= 3) {
+        alert('Bạn chỉ có thể chọn tối đa 3 sản phẩm để so sánh');
+        return prev;
+      }
+      return [...prev, productId];
+    });
+  };
+
+  const navigate = useNavigate();
+  const navigateToCompare = () => {
+    if (selectedIds.length < 2 || selectedIds.length > 3) {
+      alert('Vui lòng chọn 2 hoặc 3 sản phẩm để so sánh');
+      return;
+    }
+    const idsParam = selectedIds.join(',');
+    navigate(`/compare?ids=${idsParam}`);
+  };
+
   return (
     <div className={styles.ProductList}>
       <Navbar/>
       <main className={styles.main}>
+        <button className={styles.ButtonGotocompare} onClick={navigateToCompare} disabled={selectedIds.length < 2 || selectedIds.length > 3}>
+          ⚖️
+          <span className={styles.selectedIds}>
+            {selectedIds.length}
+          </span>
+        </button>
+
         <div className={styles.container}>
           {loading && <div style={{textAlign: 'center', padding: '20px'}}>Đang tải sản phẩm...</div>}
           {error && <div className={styles.error}>Lỗi: {error}</div>}
@@ -76,6 +106,9 @@ const ProductList = () => {
           {!loading && !error && (
               products.map(product => (
                 <div key={product._id} className={styles.productCard}>
+                  <label className={styles.compareCheckbox}>
+                    <input type="checkbox" checked={selectedIds.includes(product._id)} onChange={() => toggleSelect(product._id)} />
+                  </label>
                   <Link to={`/product/${product._id}`}  style={{textDecoration: 'none', color: 'inherit'}}>
                     {product.image ? (
                       <img src={product.image} alt={product.name} className={styles.productImage} />

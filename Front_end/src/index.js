@@ -28,6 +28,7 @@ import ProductDetail from './pages/ProductDetail';
 import AdminPage from './pages/AdminPage';
 import ProductList from './pages/ProductList';
 import Introduction from './pages/Introduction';
+import Compare from './components/Compare';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -40,6 +41,7 @@ const router = createBrowserRouter([
       { path: 'payment', element: <Payment /> }, 
       { path: 'profile', element: <ProfilePage /> },
       { path: 'product/:id', element: <ProductDetail /> },
+      { path: 'compare', element: <Compare /> },
       {path: 'productlist', element: <ProductList/>},
       {path: 'introduction', element: <Introduction/>},
     ],
