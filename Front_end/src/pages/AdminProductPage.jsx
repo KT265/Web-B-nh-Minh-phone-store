@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Footer from '../components/Footer.jsx';
 import Navbar from '../components/Navbar.jsx';
-import './AdminProductPage.css';
-import './AdminPage.css'; 
+import '../styles/AdminProductPage.css';
+import '../styles/AdminPage.css'; 
 
 const AdminProductPage = () => {
   const [products, setProducts] = useState([]);

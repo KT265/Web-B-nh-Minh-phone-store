@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Footer from '../components/Footer.jsx';
 import Navbar from '../components/Navbar.jsx';
-import './AdminPage.css';
+import '../styles/AdminPage.css';
 
 const AdminPage = () => {
   const [users, setUsers] = useState([]); // Danh sách gốc từ API

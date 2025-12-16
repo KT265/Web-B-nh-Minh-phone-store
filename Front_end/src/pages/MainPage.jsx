@@ -14,8 +14,12 @@ const MainPage = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Giới hạn số sản phẩm hiển thị trên MainPage (client-side)
-  const MAX_ITEMS = 12;
+  const [searchTerm, setSearchTerm] = useState('');
+  const filteredProducts = products.filter(product => {
+    const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchesSearch;
+  });
+
 
   // State cho giỏ hàng
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -71,16 +75,39 @@ const MainPage = () => {
     <div className={styles.mainPage}>
       <Navbar />      
       <Banner />
-      
-      <div className={styles.searchBar}>
+      <div className={styles.searchArea}>
         <input 
           type="text" 
           className={styles.searchInput} 
           placeholder="Tìm kiếm sản phẩm..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <button className={styles.searchButton}>Tìm kiếm</button>
+        {searchTerm && (
+          <div className={styles.productGrid}>
+              {filteredProducts.slice(0,3).map(product => (
+                <Link to={`/product/${product._id}`}  style={{textDecoration: 'none', color: 'inherit'}} >  
+                  <div className={styles.productcard} key={product._id}>
+                    <img src={product.image} alt= {product.name}/>
+                    <div className={styles.productinfo}>
+                      <h3>{product.name}</h3>
+                      <div className={styles.productPrice}>
+                          <span className={styles.priceCurrent}>
+                            {product.price?.toLocaleString('vi-VN')}₫
+                          </span>
+                          {product.priceOld && (
+                            <span className={styles.priceOld}>
+                              {product.priceOld?.toLocaleString('vi-VN')}₫
+                            </span>
+                          )}
+                        </div> 
+                    </div>
+                  </div>
+                </Link>
+              ))}
+          </div>
+        )}
       </div>
-
       <button 
         className={styles.floatingCartBtn}
         onClick={openCart}
@@ -97,7 +124,6 @@ const MainPage = () => {
         isOpen={isCartOpen}
         onClose={closeCart}
       />
-
       <main className={styles.main}>
         <div className={styles.productContainer}>
           {loading ? (
@@ -110,7 +136,7 @@ const MainPage = () => {
               </p>
             </div>
           ) : (
-            products.slice(0, MAX_ITEMS).map(product => (
+            products.slice(0, 12).map(product => (   
               <div key={product._id} className={styles.productCard}>
                 <Link to={`/product/${product._id}`}  style={{textDecoration: 'none', color: 'inherit'}} >
                   <div className={styles.productContent}>
@@ -140,7 +166,7 @@ const MainPage = () => {
             ))
           )}
         </div>
-      </main>     
+      </main> 
     </div>
   );
 };

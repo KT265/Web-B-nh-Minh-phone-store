@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Footer from '../components/Footer.jsx';
 import Navbar from '../components/Navbar.jsx';
-import './AdminOrderPage.css';
-import './AdminPage.css';
+import '../styles/AdminOrderPage.css';
+import '../styles/AdminPage.css';
 
 const AdminOrderPage = () => {
   const [orders, setOrders] = useState([]);
