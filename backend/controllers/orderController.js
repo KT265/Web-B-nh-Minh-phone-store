@@ -54,9 +54,15 @@ const getMyOrders = async (req, res) => {
 // @route   GET /api/orders
 // @access  Private/Admin
 const getOrders = async (req, res) => {
-  //Lay tat ca don hang, dong thoi 'populate' ten cua user
-  const orders = await Order.find({}).populate('user', 'id name email');
-  res.json(orders);
+  try {
+    const orders = await Order.find({})
+      .populate('user', 'id name email') 
+      .sort({ createdAt: -1 }); 
+      
+    res.json(orders);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
 // @desc    Cập nhật trạng thái đơn hàng (Đã giao)
@@ -68,11 +74,14 @@ const updateOrderToDelivered = async (req, res) => {
   if (order) {
     order.isDelivered = true;
     order.deliveredAt = Date.now();
+    // Nếu bạn muốn lưu cả trạng thái string
+    // order.status = 'Shipped'; 
+
     const updatedOrder = await order.save();
     res.json(updatedOrder);
   } else {
     res.status(404);
-    throw new Error('Không tìm thấy đơn hàng');
+    throw new Error('Order not found');
   }
 };
 
@@ -100,5 +109,7 @@ const getOrderById = async (req, res) => {
     throw new Error('Không tìm thấy đơn hàng');
   }
 };
+
+
 
 export { addOrderItems, getMyOrders, getOrders, updateOrderToDelivered, getOrderById };

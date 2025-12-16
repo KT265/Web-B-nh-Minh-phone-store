@@ -252,6 +252,22 @@ const updateCartItemQuantity = async (req, res) => {
 
 
 
+//them ham getCustomer
+// @desc    Lấy tất cả người dùng (Chỉ dành cho Admin)
+// @route   GET /api/customer
+// @access  Private/Admin
+const getCustomers = async (req, res) => {
+    try {
+        // Lấy tất cả user, sắp xếp người mới nhất lên đầu
+        const customers = await Customer.find({}).sort({ createdAt: -1 });
+        res.json(customers);
+    } catch (error) {
+        res.status(500).json({ message: 'Lỗi server' });
+    }
+};
+
+
+
 export{
     registerCustomer,
     loginCustomer,
@@ -260,4 +276,5 @@ export{
     removeItemFromCart,
     updateUserProfile,
     updateCartItemQuantity,
+    getCustomers,
 };

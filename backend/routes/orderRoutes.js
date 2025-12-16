@@ -13,5 +13,6 @@ router.get('/myorders', protect, getMyOrders);
 //route chung(co bao mat ben trong)
 router.get('/:id', protect, getOrderById);
 //route cap nhat cau admin
-router.put('/:id/deliver', protect, admin, updateOrderToDelivered);
+router.route('/:id/deliver').put(protect, admin, updateOrderToDelivered);
+router.route('/').post(protect, addOrderItems).get(protect, admin, getOrders);
 export default router;

@@ -29,6 +29,8 @@ import AdminPage from './pages/AdminPage';
 import ProductList from './pages/ProductList';
 import Introduction from './pages/Introduction';
 import Compare from './components/Compare';
+import AdminProductPage from './pages/AdminProductPage';
+import AdminOrderPage from './pages/AdminOrderPage';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -49,6 +51,14 @@ const router = createBrowserRouter([
   {
     path: '/admin',
     element: <AdminPage />
+  },
+  {
+    path: '/admin/products', // Trang Quản lý sản phẩm
+    element: <AdminProductPage /> 
+  },
+  {
+    path: '/admin/orders', 
+    element: <AdminOrderPage /> 
   }
 ]);
 

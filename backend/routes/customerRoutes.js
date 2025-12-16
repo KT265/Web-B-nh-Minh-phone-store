@@ -8,8 +8,9 @@ import{
     removeItemFromCart,
     updateUserProfile,
     updateCartItemQuantity,
+    getCustomers,
 }from '../controllers/customerController.js';
-import { protect } from '../middleware/authMiddleware.js';
+import { protect, admin} from '../middleware/authMiddleware.js';
 //cac routes cong khai
 router.post('/',registerCustomer);
 router.post('/login',loginCustomer);
@@ -30,4 +31,7 @@ router
     .route('/profile')
     // .get(protect, getUserProfile)
     .put(protect, updateUserProfile);
+
+router.get('/', protect, admin, getCustomers);
 export default router;
+

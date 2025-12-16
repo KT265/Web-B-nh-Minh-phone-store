@@ -1,0 +1,168 @@
+
+.order-filters {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  background: white;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.search-order {
+  flex: 1;
+  padding: 10px 16px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  outline: none;
+}
+
+.filter-status {
+  padding: 10px 16px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: white;
+  min-width: 150px;
+  cursor: pointer;
+}
+
+/* --- TABLE STYLES --- */
+.table-responsive {
+  overflow-x: auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.order-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px;
+}
+
+.order-table th {
+  text-align: left;
+  padding: 16px;
+  background-color: #f8f9fa;
+  color: #6c757d;
+  font-weight: 600;
+  border-bottom: 2px solid #eee;
+}
+
+.order-table td {
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+  color: #333;
+  vertical-align: middle;
+}
+
+.order-table tr:hover {
+  background-color: #f9f9f9;
+}
+
+.cell-customer h4 {
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+}
+.cell-customer p {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: #888;
+}
+
+.order-id {
+  font-family: monospace;
+  font-weight: 600;
+  color: #555;
+  background: #f0f0f0;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.badge-status {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.bg-success { background-color: #d1e7dd; color: #0f5132; }
+.bg-processing { background-color: #cfe2ff; color: #084298; }
+.bg-shipped { background-color: #fff3cd; color: #664d03; }
+.bg-danger { background-color: #f8d7da; color: #842029; }
+/* --- ACTION BUTTON --- */
+.btn-view-order {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #0d6efd;
+  padding: 6px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.btn-view-order:hover {
+  background-color: #e7f1ff;
+}
+
+
+/* modal chi tiết đơn hàng */
+.order-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.detail-section h4 {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 8px;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.detail-item {
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+.detail-item strong { color: #333; }
+
+.order-items-list {
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.item-image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.item-info { flex: 1; }
+.item-name { font-weight: 500; font-size: 13px; margin: 0; }
+.item-price { font-size: 12px; color: #888; }
+
+.status-badge-large {
+  display: inline-block;
+  padding: 8px 15px;
+  border-radius: 6px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-top: 5px;
+}
