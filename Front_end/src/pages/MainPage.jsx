@@ -85,26 +85,27 @@ const MainPage = () => {
         />
         {searchTerm && (
           <div className={styles.productGrid}>
-              {filteredProducts.slice(0,3).map(product => (
-                <Link to={`/product/${product._id}`}  style={{textDecoration: 'none', color: 'inherit'}} >  
-                  <div className={styles.productcard} key={product._id}>
-                    <img src={product.image} alt= {product.name}/>
-                    <div className={styles.productinfo}>
-                      <h3>{product.name}</h3>
-                      <div className={styles.productPrice}>
-                          <span className={styles.priceCurrent}>
-                            {product.price?.toLocaleString('vi-VN')}₫
+            {filteredProducts.length === 0 ? (<p style={{textAlign: 'center'}}>Không tìm thấy sản phẩm nào.</p>) : null}
+            {filteredProducts.slice(0,3).map(product => (
+              <Link to={`/product/${product._id}`}  style={{textDecoration: 'none', color: 'inherit'}} >  
+                <div className={styles.productcard} key={product._id}>
+                  <img src={product.image} alt= {product.name}/>
+                  <div className={styles.productinfo}>
+                    <h3>{product.name}</h3>
+                    <div className={styles.productPrice}>
+                        <span className={styles.priceCurrent}>
+                          {product.price?.toLocaleString('vi-VN')}₫
+                        </span>
+                        {product.priceOld && (
+                          <span className={styles.priceOld}>
+                            {product.priceOld?.toLocaleString('vi-VN')}₫
                           </span>
-                          {product.priceOld && (
-                            <span className={styles.priceOld}>
-                              {product.priceOld?.toLocaleString('vi-VN')}₫
-                            </span>
-                          )}
-                        </div> 
-                    </div>
+                        )}
+                      </div> 
                   </div>
-                </Link>
-              ))}
+                </div>
+              </Link>
+            ))}
           </div>
         )}
       </div>
