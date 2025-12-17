@@ -18,6 +18,40 @@ const ProductList = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [cartItemCount, setCartItemCount] = useState(0);
 
+  // State cho bộ lọc 
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedBrand, setSelectedBrand] = useState('all');
+  const [priceRange, setPriceRange] = useState('all');
+
+  //Lấy danh sách thương hiệu
+  const brands = ['all', ...new Set(products.map(p => p.brand).filter(Boolean))];
+  //Bộ lọc
+  const filteredProducts = products.filter(product => {
+    const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesBrand = selectedBrand === 'all' || product.brand === selectedBrand;
+    let matchesPrice = true;
+    if (priceRange !== 'all') {
+      const price = product.price || 0;
+      switch(priceRange) {
+        case 'under5':
+          matchesPrice = price < 5000000;
+          break;
+        case '5to10':
+          matchesPrice = price >= 5000000 && price < 10000000;
+          break;
+        case '10to20':
+          matchesPrice = price >= 10000000 && price < 20000000;
+          break;
+        case 'over20':
+          matchesPrice = price >= 20000000;
+          break;
+        default:
+          matchesPrice = true;
+      }
+    }
+    return matchesSearch && matchesBrand && matchesPrice;
+  });
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -88,10 +122,62 @@ const ProductList = () => {
     navigate(`/compare?ids=${idsParam}`);
   };
 
+  //Reset bộ lọc
+  const resetFilters = () => {
+    setSearchTerm('');
+    setSelectedBrand('all');
+    setPriceRange('all');
+  };
+
   return (
     <div className={styles.ProductList}>
       <Navbar/>
       <main className={styles.main}>
+
+        <div className={styles.filterSection}>
+          <div className={styles.filterGroup}>
+            <label>Tìm kiếm:</label>
+            <input 
+              type="text"
+              placeholder="Nhập tên sản phẩm..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className={styles.searchInput}
+            />
+          </div>
+          <div className={styles.filterGroup}>
+            <label>Thương hiệu:</label>
+            <select 
+              value={selectedBrand} 
+              onChange={(e) => setSelectedBrand(e.target.value)}
+              className={styles.filterSelect}
+            >
+              <option value="all">Tất cả</option>
+              {brands.filter(b => b !== 'all').map(brand => (
+                <option key={brand} value={brand}>{brand}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className={styles.filterGroup}>
+            <label>Mức giá:</label>
+            <select 
+              value={priceRange} 
+              onChange={(e) => setPriceRange(e.target.value)}
+              className={styles.filterSelect}
+            >
+              <option value="all">Tất cả</option>
+              <option value="under5">Dưới 5 triệu</option>
+              <option value="5to10">5 - 10 triệu</option>
+              <option value="10to20">10 - 20 triệu</option>
+              <option value="over20">Trên 20 triệu</option>
+            </select>
+          </div>
+          <button onClick={resetFilters} className={styles.resetBtn}>
+            Xóa bộ lọc
+          </button>
+        </div>
+
         <button className={styles.ButtonGotocompare} onClick={navigateToCompare} disabled={selectedIds.length < 2 || selectedIds.length > 3}>
           ⚖️
           <span className={styles.selectedIds}>
@@ -103,8 +189,13 @@ const ProductList = () => {
           {loading && <div style={{textAlign: 'center', padding: '20px'}}>Đang tải sản phẩm...</div>}
           {error && <div className={styles.error}>Lỗi: {error}</div>}
 
-          {!loading && !error && (
-              products.map(product => (
+          {!loading && !error && filteredProducts.length === 0 && (
+            <div style={{textAlign: 'center', padding: '20px', width: '100%'}}>
+              Không tìm thấy sản phẩm nào phù hợp với bộ lọc.
+            </div>
+          )}
+          {!loading && !error && filteredProducts.length > 0 && (
+              filteredProducts.map(product => (
                 <div key={product._id} className={styles.productCard}>
                   <label className={styles.compareCheckbox}>
                     <input type="checkbox" checked={selectedIds.includes(product._id)} onChange={() => toggleSelect(product._id)} />

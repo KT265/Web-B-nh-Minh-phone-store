@@ -85,7 +85,7 @@ const MainPage = () => {
         />
         {searchTerm && (
           <div className={styles.productGrid}>
-            {filteredProducts.length === 0 ? (<p style={{textAlign: 'center'}}>Không tìm thấy sản phẩm nào.</p>) : null}
+            {filteredProducts.length === 0 ? (<p style={{textAlign: 'center'}}>Không tìm thấy sản phẩm nào.</p>): null}
             {filteredProducts.slice(0,3).map(product => (
               <Link to={`/product/${product._id}`}  style={{textDecoration: 'none', color: 'inherit'}} >  
                 <div className={styles.productcard} key={product._id}>

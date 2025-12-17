@@ -16,6 +16,56 @@
   margin: 0 auto 30px;
   padding: 0 20px;
 }
+
+.filterSection {
+  position: relative;
+  display: flex;
+  gap: 15px;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: center;
+}
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 200px;
+}
+.filterGroup label {
+  font-weight: 600;
+  font-size: 14px;
+}
+.filterSelect {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+.searchInput{
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 100vh;
+}
+
+.resetBtn {
+  padding: 8px 16px;
+  background: #5b9094;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.resetBtn:hover {
+  background: #ff4757;
+}
+
 .ButtonGotocompare{
   position: fixed;
   bottom: 100px;
