@@ -110,6 +110,70 @@ const getOrderById = async (req, res) => {
   }
 };
 
+// @desc    Hủy đơn hàng
+// @route   PUT /api/orders/:id/cancel
+// @access  Private/Admin
+const updateOrderToCancelled = async (req, res) => {
+  const order = await Order.findById(req.params.id);
+
+  if (order) {
+    order.isCancelled = true;
+    const updatedOrder = await order.save();
+    res.json(updatedOrder);
+  } else {
+    res.status(404);
+    throw new Error('Order not found');
+  }
+};
+
+// @desc    Xóa đơn hàng vĩnh viễn
+// @route   DELETE /api/orders/:id
+// @access  Private/Admin
+const deleteOrder = async (req, res) => {
+  const order = await Order.findById(req.params.id);
+
+  if (order) {
+    await order.deleteOne();
+    res.json({ message: 'Đơn hàng đã được xóa thành công' });
+  } else {
+    res.status(404);
+    throw new Error('Order not found');
+  }
+};
+// @desc    Cập nhật trạng thái đơn hàng (Tổng hợp)
+// @route   PUT /api/orders/:id/status
+// @access  Private/Admin
+const updateOrderStatus = async (req, res) => {
+  const { status } = req.body; // status sẽ là: 'Processing', 'Shipped', 'Delivered', 'Cancelled'
+  const order = await Order.findById(req.params.id);
+
+  if (order) {
+    order.isDelivered = false;
+    order.isCancelled = false;
+
+    switch (status) {
+      case 'Delivered':
+        order.isDelivered = true;
+        order.deliveredAt = Date.now();
+        break;
+      case 'Cancelled':
+        order.isCancelled = true;
+        break;
+      case 'Shipped':
+
+        break;
+      case 'Processing':
+        order.deliveredAt = null;
+        break;
+    }
+
+    const updatedOrder = await order.save();
+    res.json(updatedOrder);
+  } else {
+    res.status(404);
+    throw new Error('Order not found');
+  }
+};
 
 
-export { addOrderItems, getMyOrders, getOrders, updateOrderToDelivered, getOrderById };
+export { addOrderItems, getMyOrders, getOrders, updateOrderToDelivered, getOrderById, updateOrderToCancelled, deleteOrder, updateOrderStatus};

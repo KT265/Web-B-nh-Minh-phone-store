@@ -198,6 +198,7 @@ const updateUserProfile = async (req, res) => {
 
     customer.name = req.body.name || customer.name;
     customer.phone = req.body.phone || customer.phone;
+    customer.email = req.body.email || customer.email;
 
     if (req.body.password) {
       customer.password = req.body.password;
@@ -266,7 +267,60 @@ const getCustomers = async (req, res) => {
     }
 };
 
+// @desc    Xóa người dùng
+// @route   DELETE /api/users/:id
+// @access  Private/Admin
+const deleteUser = async (req, res) => {
+  const customer = await Customer.findById(req.params.id);
 
+  if (customer) {
+    await customer.deleteOne();
+    res.json({ message: 'Người dùng đã bị xóa' });
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+};
+
+// @desc    Lấy chi tiết người dùng (để hiện lên form sửa)
+// @route   GET /api/users/:id
+// @access  Private/Admin
+const getUserById = async (req, res) => {
+  const user = await User.findById(req.params.id).select('-password');
+  if (user) {
+    res.json(user);
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+};
+
+// @desc    Cập nhật người dùng (Sửa tên, email, quyền Admin)
+// @route   PUT /api/users/:id
+// @access  Private/Admin
+const updateUser = async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    if (req.body.isAdmin !== undefined) {
+        user.isAdmin = req.body.isAdmin;
+    }
+
+    const updatedUser = await user.save();
+
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+    });
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+};
 
 export{
     registerCustomer,
@@ -277,4 +331,7 @@ export{
     updateUserProfile,
     updateCartItemQuantity,
     getCustomers,
+    deleteUser,
+    getUserById,
+    updateUser,
 };

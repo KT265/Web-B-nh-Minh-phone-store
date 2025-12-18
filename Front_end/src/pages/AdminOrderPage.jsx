@@ -16,7 +16,7 @@ const AdminOrderPage = () => {
 
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('All');
-
+  const [statusToUpdate, setStatusToUpdate] = useState('');
   const fetchOrders = async () => {
     try {
       const userInfo = localStorage.getItem('userInfo') 
@@ -50,26 +50,47 @@ const AdminOrderPage = () => {
 
   const handleViewOrder = (order) => {
     setSelectedOrder(order);
+    let currentStatus = 'Processing';
+    if (order.isDelivered) currentStatus = 'Delivered';
+    else if (order.isCancelled) currentStatus = 'Cancelled';
+    setStatusToUpdate(currentStatus);
     setShowModal(true);
   };
+  const handleDeleteOrder = async () => {
+    if(!window.confirm('CẢNH BÁO: Bạn có chắc chắn muốn XÓA VĨNH VIỄN đơn hàng này khỏi Database? Hành động này không thể hoàn tác!')) return;
 
-  const handleMarkAsDelivered = async () => {
-    if (!selectedOrder) return;
     try {
       const userInfo = JSON.parse(localStorage.getItem('userInfo'));
       const config = {
-        headers: {
-          Authorization: `Bearer ${userInfo.token}`,
-        },
+        headers: { Authorization: `Bearer ${userInfo.token}` },
       };
 
-      await axios.put(
-        `http://localhost:5000/api/orders/${selectedOrder._id}/deliver`,
-        {},
+      await axios.delete(
+        `http://localhost:5000/api/orders/${selectedOrder._id}`,
         config
       );
 
-      alert("Đã cập nhật trạng thái thành công!");
+      alert("Đã xóa bay màu đơn hàng!");
+      setShowModal(false); 
+      fetchOrders();
+    } catch (error) {
+      alert("Lỗi: " + (error.response?.data?.message || error.message));
+    }
+  };
+  const handleUpdateStatus = async () => {
+    try {
+      const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+      const config = {
+        headers: { Authorization: `Bearer ${userInfo.token}` },
+      };
+
+      await axios.put(
+        `http://localhost:5000/api/orders/${selectedOrder._id}/status`,
+        { status: statusToUpdate },
+        config
+      );
+
+      alert(`Đã cập nhật trạng thái thành: ${statusToUpdate}`);
       setShowModal(false);
       fetchOrders();
     } catch (error) {
@@ -89,12 +110,13 @@ const AdminOrderPage = () => {
   });
 
   const getStatusBadgeClass = (order) => {
+    if (order.isCancelled) return 'bg-danger';
     if (order.isDelivered) return 'bg-shipped';
     if (order.isPaid) return 'bg-success';
     return 'bg-processing';
   };
-
   const getStatusText = (order) => {
+    if (order.isCancelled) return 'Đã hủy';
     if (order.isDelivered) return 'Đã giao';
     if (order.isPaid) return 'Đã thanh toán';
     return 'Đang xử lý';
@@ -289,27 +311,70 @@ const AdminOrderPage = () => {
                 </div>
             </div>
 
-            <div className="modal-actions" style={{justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid #eee', paddingTop: '15px', marginTop: '15px'}}>
-                <div>
-                    Trạng thái hiện tại: 
-                    <span className={`status-badge-large ${getStatusBadgeClass(selectedOrder)}`} style={{marginLeft: '10px', padding: '5px 10px', borderRadius: '5px'}}>
-                        {getStatusText(selectedOrder)}
-                    </span>
+            <div className="modal-actions" style={{
+                display: 'flex', 
+                justifyContent: 'space-between', 
+                alignItems: 'center', 
+                borderTop: '1px solid #eee', 
+                paddingTop: '20px', 
+                marginTop: '20px'
+            }}>
+                <div style={{display: 'flex', gap: '10px'}}>
+                    <button type="button" className="btn-cancel" onClick={() => setShowModal(false)}>
+                        Đóng
+                    </button>
+                    
+                    <button 
+                        type="button" 
+                        onClick={handleDeleteOrder}
+                        title="Xóa vĩnh viễn khỏi Database"
+                        style={{
+                            background: '#ffebee', 
+                            color: '#d32f2f', 
+                            border: '1px solid #ffcdd2', 
+                            borderRadius: '6px',
+                            padding: '0 15px',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '5px'
+                        }}
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
+                        Xóa
+                    </button>
                 </div>
 
-                <div>
-                    <button type="button" className="btn-cancel" onClick={() => setShowModal(false)}>Đóng</button>
+                <div style={{display: 'flex', gap: '10px', alignItems: 'center'}}>
+                    <span style={{fontWeight: '500', fontSize: '14px'}}>Trạng thái:</span>
                     
-                    {!selectedOrder.isDelivered && (
-                        <button 
-                            type="button" 
-                            className="btn-submit" 
-                            style={{marginLeft: '10px', backgroundColor: '#28a745'}}
-                            onClick={handleMarkAsDelivered}
-                        >
-                            ✔ Xác nhận Đã Giao
-                        </button>
-                    )}
+                    <select 
+                        value={statusToUpdate}
+                        onChange={(e) => setStatusToUpdate(e.target.value)}
+                        style={{
+                            padding: '8px 12px',
+                            borderRadius: '6px',
+                            border: '1px solid #ddd',
+                            outline: 'none',
+                            cursor: 'pointer',
+                            fontWeight: 'bold',
+                            color: statusToUpdate === 'Cancelled' ? 'red' : statusToUpdate === 'Delivered' ? 'green' : '#333'
+                        }}
+                    >
+                        <option value="Processing">Đang xử lý</option>
+                        <option value="Shipped">Đang giao hàng</option>
+                        <option value="Delivered">Đã giao hàng</option>
+                        <option value="Cancelled">Đã hủy (Lưu lịch sử)</option>
+                    </select>
+
+                    <button 
+                        type="button" 
+                        className="btn-submit" 
+                        onClick={handleUpdateStatus}
+                        style={{height: '38px', padding: '0 20px'}}
+                    >
+                        Lưu
+                    </button>
                 </div>
             </div>
 

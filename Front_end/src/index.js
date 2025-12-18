@@ -31,6 +31,7 @@ import Introduction from './pages/Introduction';
 import Compare from './components/Compare';
 import AdminProductPage from './pages/AdminProductPage';
 import AdminOrderPage from './pages/AdminOrderPage';
+import AdminSettingsPage from './pages/AdminSettingsPage';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
   {
     path: '/admin/orders', 
     element: <AdminOrderPage /> 
+  },
+  {
+    path: '/admin/settings',
+    element: <AdminSettingsPage /> 
   }
 ]);
 

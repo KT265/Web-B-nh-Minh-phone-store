@@ -9,6 +9,9 @@ import{
     updateUserProfile,
     updateCartItemQuantity,
     getCustomers,
+    deleteUser,
+    getUserById,
+    updateUser
 }from '../controllers/customerController.js';
 import { protect, admin} from '../middleware/authMiddleware.js';
 //cac routes cong khai
@@ -33,5 +36,10 @@ router
     .put(protect, updateUserProfile);
 
 router.get('/', protect, admin, getCustomers);
+router
+  .route('/:id')
+  .delete(protect, admin, deleteUser)
+  .get(protect, admin, getUserById)
+  .put(protect, admin, updateUser);
 export default router;
 

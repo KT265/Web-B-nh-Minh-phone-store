@@ -8,7 +8,7 @@ import productRoutes from './routes/productRoutes.js';
 import customerRoutes from './routes/customerRoutes.js';
 import staffRoutes from './routes/staffRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
-
+import couponRoutes from './routes/couponRoutes.js';
 dotenv.config(); //cau hinh .env
 connectDB(); //ket noi voi MongoDB
 
@@ -20,7 +20,8 @@ app.use('/api/products', productRoutes);
 app.use('/api/customer', customerRoutes);
 app.use('/api/staff', staffRoutes);
 app.use('/api/orders', orderRoutes);
-
+app.use('/api/orders', orderRoutes);
+app.use('/api/coupons', couponRoutes)
 
 
 const PORT = process.env.PORT || 5000; //cau hinh port
